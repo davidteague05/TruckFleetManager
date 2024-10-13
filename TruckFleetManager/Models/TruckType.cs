@@ -4,5 +4,7 @@
     {
         public int TruckTypeId { get; set; }
         public string Name { get; set; }
+
+        public List<Truck>? Trucks { get; set; }
     }
 }

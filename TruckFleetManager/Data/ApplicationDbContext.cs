@@ -11,5 +11,6 @@ namespace TruckFleetManager.Data
         {
         }
         public DbSet<TruckFleetManager.Models.TruckType> Type { get; set; } = default!;
+        public DbSet<TruckFleetManager.Models.Truck> Truck { get; set; } = default!;
     }
 }
