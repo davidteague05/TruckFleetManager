@@ -3,6 +3,23 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome To Truck Fleet Manager</h1>
+    <p>Your place to manage your truck fleet.</p>
+    <p>To get started click on types of trucks and add the types of trucks that you need.</p>
+    <p>Then click on Trucks and add all the trucks in your fleet.</p>
+    
+    @*boot strap columns*@
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col">
+                <p><a asp-area="" asp-controller="TruckTypes" asp-action="Index">Types of Trucks</a></p>
+            </div>
+            <div class="col">
+                <p> </p>
+            </div>
+            <div class="col">
+                <p><a asp-area="" asp-controller="Trucks" asp-action="Index">Trucks</a></p>
+            </div>
+        </div>
+    </div>
 </div>

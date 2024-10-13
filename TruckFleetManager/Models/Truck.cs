@@ -21,7 +21,7 @@ namespace TruckFleetManager.Models
 
         public string? Image {  get; set; }
 
-        [DisplayName("TruckType")]
+        [DisplayName("Truck Type")]
         //fk
         public int TruckTypeId { get; set; }
 

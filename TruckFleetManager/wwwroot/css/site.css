@@ -24,3 +24,11 @@ body {
 table.sortable th:hover {
     cursor: pointer;
 }
+
+.container{
+    margin-top: 50px;
+}
+
+div p a{
+    text-decoration: none;
+}
