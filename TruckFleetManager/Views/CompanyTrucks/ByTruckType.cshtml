@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Truck>
+
+@{
+    ViewData["Title"] = "View the " + @ViewData["TruckType"] + " trucks";
+}
+
+@if (Model.Count() == 0)
+{
+    <h1>Sorry, no trucks found for this category.</h1>
+    return;
+}
+
+<h1>@ViewData["TruckType"]</h1>
+
+<section class="row card-group">
+    @foreach (var truck in Model)
+    {
+                    <article class="col-lg-4 mb-3">
+            <div class="card mb-4 h-100">
+                <div class="card-body">
+                    <h4>
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@truck.TruckId">
+                            @truck.Brand
+                        </a>
+                    </h4>
+                    @if (truck.Image != null)
+                    {
+                        <img src="~/img/trucks/@truck.Image" alt="@truck.Brand" class="thumb" />
+                    }
+                    else
+                    {
+                        <img src="~/img/trucks/placeholder.gif" alt="@truck.Brand" class="thumb" />
+                    }
+                    <p>@truck.Year</p>
+                    <p>@truck.Model</p> 
+                    <p>@truck.Transmission</p>
+                    <p>@truck.LastService</p>
+                </div>
+            </div>
+        </article>
+    }
+</section>

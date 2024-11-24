@@ -1,0 +1,21 @@
+﻿@model IEnumerable<TruckType>
+
+@{
+    ViewData["Title"] = "Select Truck Type";
+}
+
+<h1>Select a Truck Type</h1>
+
+<ul class="row card-group">
+    @foreach (var t in Model)
+    {
+        <li class="col-lg-4 mb-3">
+            <div class="card">
+                <a asp-action="ByTruckType" asp-route-id="@t.TruckTypeId">
+                    @t.Name
+                </a>
+            </div>
+        </li>
+    }
+</ul>
+

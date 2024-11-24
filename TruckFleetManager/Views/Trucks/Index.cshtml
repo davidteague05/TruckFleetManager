@@ -55,7 +55,10 @@
                 @Html.DisplayFor(modelItem => item.LastService)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                @if (item.Image != null)
+                {
+                    <img src="~/img/products/@item.Image" alt="Product Image" class="thumb" />
+                }
             </td>
             <td>
                 @item.TruckType.Name

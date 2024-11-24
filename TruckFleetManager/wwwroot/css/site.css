@@ -36,3 +36,7 @@ div p a{
 footer .container{
     margin-top: 2px;
 }
+
+.thumb {
+    width: 85px;
+}

@@ -60,10 +60,15 @@ namespace TruckFleetManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TruckId,Year,Brand,Model,Transmission,LastService,Image,TruckTypeId")] Truck truck)
+        public async Task<IActionResult> Create([Bind("TruckId,Year,Brand,Model,Transmission,LastService,TruckTypeId")] Truck truck, IFormFile? Image)
         {
             if (ModelState.IsValid)
             {
+                if (Image != null)
+                {
+                    var fileName = UploadImage(Image);
+                    truck.Image = fileName;
+                }
                 _context.Add(truck);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +99,7 @@ namespace TruckFleetManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TruckId,Year,Brand,Model,Transmission,LastService,Image,TruckTypeId")] Truck truck)
+        public async Task<IActionResult> Edit(int id, [Bind("TruckId,Year,Brand,Model,Transmission,LastService,TruckTypeId")] Truck truck, IFormFile? Image, String? CurrentImage)
         {
             if (id != truck.TruckId)
             {
@@ -105,6 +110,17 @@ namespace TruckFleetManager.Controllers
             {
                 try
                 {
+                    if (Image != null)
+                    {
+                        var fileName = UploadImage(Image);
+                        truck.Image = fileName;
+                    }
+                    else
+                    {
+                        // keep current photo if any
+                        truck.Image = CurrentImage;
+                    }
+
                     _context.Update(truck);
                     await _context.SaveChangesAsync();
                 }
@@ -162,6 +178,19 @@ namespace TruckFleetManager.Controllers
         private bool TruckExists(int id)
         {
             return _context.Truck.Any(e => e.TruckId == id);
+        }
+
+        private string UploadImage(IFormFile Image)
+        {  
+            var filePath = Path.GetTempFileName();
+            var fileName = Guid.NewGuid().ToString() + "-" + Image.FileName;
+            var uploadPath = System.IO.Directory.GetCurrentDirectory() + "\\wwwroot\\img\\trucks\\" + fileName;
+
+            using (var stream = new FileStream(uploadPath, FileMode.Create))
+            {
+                Image.CopyTo(stream);
+            }
+            return fileName;
         }
     }
 }
