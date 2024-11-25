@@ -19,7 +19,7 @@
             <div class="card mb-4 h-100">
                 <div class="card-body">
                     <h4>
-                        <a asp-controller="Products" asp-action="Details" asp-route-id="@truck.TruckId">
+                        <a asp-controller="Trucks" asp-action="Details" asp-route-id="@truck.TruckId">
                             @truck.Brand
                         </a>
                     </h4>
@@ -29,7 +29,7 @@
                     }
                     else
                     {
-                        <img src="~/img/trucks/placeholder.gif" alt="@truck.Brand" class="thumb" />
+                        <img src="~/img/trucks/placeholder-truck.png" alt="@truck.Brand" class="thumb" />
                     }
                     <p>@truck.Year</p>
                     <p>@truck.Model</p> 
