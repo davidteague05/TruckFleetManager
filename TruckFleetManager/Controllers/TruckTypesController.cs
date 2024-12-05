@@ -49,7 +49,7 @@ namespace TruckFleetManager.Controllers
         // GET: TruckTypes/Create
         public IActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: TruckTypes/Create
