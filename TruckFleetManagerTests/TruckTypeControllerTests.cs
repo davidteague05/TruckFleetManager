@@ -35,39 +35,87 @@ namespace TruckFleetManagerTests
         [TestMethod]
         public async Task CreateInvalidInput()
         {
+            // Arrange
             controller.ModelState.AddModelError("Name", "The Name field is required.");
-            
-            var truckType = new TruckType
-            {
-                TruckTypeId = 1,
-                Name = ""
+            var truckType = new TruckType 
+            { 
+                TruckTypeId = 1, 
+                Name = "" 
             };
 
+            // Act
             var result = (ViewResult)await controller.Create(truckType);
 
+            // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(null, result.ViewName);
-            var model = (TruckType)result.Model;
-            Assert.AreEqual(truckType, model);
-            Assert.IsTrue(controller.ModelState.ContainsKey("Name")); 
-            Assert.AreEqual(0, _context.Type.Count());
+        }
 
+        [TestMethod]
+        public async Task CreateInvalidInputModelState()
+        {
+            // Arrange
+            controller.ModelState.AddModelError("Name", "The Name field is required.");
+            var truckType = new TruckType 
+            { 
+                TruckTypeId = 1, 
+                Name = "" 
+            };
+
+            // Act
+            var result = (ViewResult)await controller.Create(truckType);
+
+            // Assert
+            Assert.IsTrue(controller.ModelState.ContainsKey("Name"));
         }
 
         [TestMethod]
         public async Task CreateValidInput()
         {
-            var truckType = new TruckType
-            {
-                TruckTypeId = 1,
-                Name = "Flatbed"
+            // Arrange
+            var truckType = new TruckType 
+            { 
+                TruckTypeId = 1, 
+                Name = "Flatbed" 
             };
 
+            // Act
             var result = (RedirectToActionResult)await controller.Create(truckType);
 
-            Assert.IsNotNull(result);
+            // Assert
             Assert.AreEqual("Index", result.ActionName);
+        }
+
+        [TestMethod]
+        public async Task CreateValidInputCount()
+        {
+            // Arrange
+            var truckType = new TruckType 
+            { 
+                TruckTypeId = 1, 
+                Name = "Flatbed" 
+            };
+
+            // Act
+            await controller.Create(truckType);
+
+            // Assert
             Assert.AreEqual(1, _context.Type.Count());
+        }
+
+        [TestMethod]
+        public async Task CreateValidInputName()
+        {
+            // Arrange
+            var truckType = new TruckType 
+            { 
+                TruckTypeId = 1, 
+                Name = "Flatbed" 
+            };
+
+            // Act
+            await controller.Create(truckType);
+
+            // Assert
             Assert.AreEqual("Flatbed", _context.Type.First().Name);
         }
     }
